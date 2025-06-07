@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenCamp 绿帐篷咖啡 营地咖啡</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 配置Tailwind自定义颜色和字体 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2E7D32',     // 深绿色
+            secondary: '#81C784',   // 浅绿色
+            accent: '#FF8A65',      // 暖橙色
+            dark: '#1B5E20',        // 墨绿色
+            light: '#E8F5E9'        // 淡绿色
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <!-- 自定义工具类 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .transition-custom {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    }
+  </style>
+  <!-- 引入Google字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans bg-light text-dark antialiased">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-300">
+    <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="#" class="text-2xl font-display font-bold text-white text-shadow">Green Camp</a>
+
+      <!-- 桌面导航 -->
+      <div class="hidden md:flex space-x-8">
+        <a href="#home" class="text-white hover:text-accent transition-custom font-medium">首页</a>
+        <a href="#about" class="text-white hover:text-accent transition-custom font-medium">关于我们</a>
+        <a href="#menu" class="text-white hover:text-accent transition-custom font-medium">菜单</a>
+        <a href="#gallery" class="text-white hover:text-accent transition-custom font-medium">照片墙</a>
+        <a href="#location" class="text-white hover:text-accent transition-custom font-medium">位置</a>
+        <a href="#contact" class="text-white hover:text-accent transition-custom font-medium">联系我们</a>
+      </div>
+
+      <!-- 移动端菜单按钮 -->
+      <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+        <i class="fa fa-bars text-2xl"></i>
+      </button>
+    </nav>
+
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-dark/95 backdrop-blur-md">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+        <a href="#home" class="text-white hover:text-accent transition-custom py-2 font-medium">首页</a>
+        <a href="#about" class="text-white hover:text-accent transition-custom py-2 font-medium">关于我们</a>
+        <a href="#menu" class="text-white hover:text-accent transition-custom py-2 font-medium">菜单</a>
+        <a href="#gallery" class="text-white hover:text-accent transition-custom py-2 font-medium">照片墙</a>
+        <a href="#location" class="text-white hover:text-accent transition-custom py-2 font-medium">位置</a>
+        <a href="#contact" class="text-white hover:text-accent transition-custom py-2 font-medium">联系我们</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区 -->
+  <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="https://picsum.photos/id/431/1920/1080" alt="精品咖啡展示" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-dark/60"></div>
+    </div>
+
+    <div class="container mx-auto px-4 z-10 text-center">
+      <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-display font-bold text-white mb-6 leading-tight">
+        一杯咖啡，一种生活方式
+      </h1>
+      <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 mb-10 max-w-2xl mx-auto">
+        在GreenCamp，我们致力于为您提供最纯正的咖啡体验，从世界各地精选的咖啡豆，由专业咖啡师精心烘焙。
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#menu" class="px-8 py-3 bg-accent hover:bg-accent/90 text-white font-medium rounded-full transition-custom transform hover:scale-105">
+          浏览菜单
+        </a>
+        <a href="#location" class="px-8 py-3 bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium rounded-full transition-custom transform hover:scale-105">
+          找到我们
+        </a>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+      <a href="#about" class="text-white opacity-80 hover:opacity-100 transition-custom">
+        <i class="fa fa-chevron-down text-2xl"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- 关于我们 -->
+  <section id="about" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display font-bold text-dark mb-6">
+            我们的故事
+          </h2>
+          <p class="text-gray-700 mb-6 leading-relaxed">
+            GreenCamp 始于2018年，源于对咖啡的热爱和对品质的执着追求。我们的创始人，Sarah，一位资深咖啡爱好者，怀揣着将世界各地优质咖啡带给本地社区的梦想，开设了第一家门店。
+          </p>
+          <p class="text-gray-700 mb-6 leading-relaxed">
+            我们坚持手工挑选每一批咖啡豆，与全球各地的小型农场建立直接贸易关系，确保公平价格的同时，也能获得最新鲜的原料。我们的咖啡师都经过严格培训，掌握传统与现代的冲泡技艺。
+          </p>
+          <div class="flex items-center gap-4 mt-8">
+            <img src="https://picsum.photos/id/64/100/100" alt="卡老鼠 - 创始人" class="w-16 h-16 rounded-full object-cover">
+            <div>
+              <h4 class="font-medium text-dark">Sarah Chen</h4>
+              <p class="text-gray-600 text-sm">创始人 & 首席咖啡师</p>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2 relative">
+          <img src="https://picsum.photos/id/425/600/800" alt="咖啡店内部环境" class="w-full h-auto rounded-lg shadow-xl">
+          <div class="absolute -bottom-6 -left-6 bg-primary text-white p-6 rounded-lg shadow-lg hidden md:block">
+            <p class="text-3xl font-display font-bold">7+</p>
+            <p class="text-sm">年咖啡行业经验</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 特色 -->
+  <section class="py-20 bg-secondary/30">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display font-bold text-dark mb-4">
+          为什么选择我们
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          每一杯咖啡都是我们对品质和工艺的承诺，从种子到杯子，我们关注每一个细节。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- 特色1 -->
+        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-custom transform hover:-translate-y-2">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <i class="fa fa-coffee text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-display font-semibold mb-4">精选咖啡豆</h3>
+          <p class="text-gray-600">
+            我们直接从世界各地精选优质阿拉比卡咖啡豆，确保每一批次都具有独特的风味特点。
+          </p>
+        </div>
+
+        <!-- 特色2 -->
+        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-custom transform hover:-translate-y-2">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <i class="fa fa-leaf text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-display font-semibold mb-4">可持续发展</h3>
+          <p class="text-gray-600">
+            我们支持公平贸易，与小型农场合作，确保咖啡种植过程对环境友好且可持续。
+          </p>
+        </div>
+
+        <!-- 特色3 -->
+        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-custom transform hover:-translate-y-2">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+            <i class="fa fa-certificate text-primary text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-display font-semibold mb-4">专业烘焙</h3>
+          <p class="text-gray-600">
+            我们的咖啡师都是经过专业培训的烘焙大师，精心烘焙每一批咖啡豆以释放其最佳风味。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 菜单 -->
+  <section id="menu" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display font-bold text-dark mb-4">
+          我们的菜单
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          探索我们精心制作的咖啡和甜点，每一款都有其独特的风味故事。
+        </p>
+      </div>
+
+      <!-- 菜单标签页 -->
+      <div class="flex flex-wrap justify-center mb-12 gap-2">
+        <button class="menu-tab active px-6 py-2 rounded-full bg-primary text-white font-medium transition-custom" data-tab="coffee">
+          咖啡
+        </button>
+        <button class="menu-tab px-6 py-2 rounded-full bg-gray-200 text-dark font-medium transition-custom" data-tab="tea">
+          茶
+        </button>
+        <button class="menu-tab px-6 py-2 rounded-full bg-gray-200 text-dark font-medium transition-custom" data-tab="desserts">
+          甜点
+        </button>
+        <button class="menu-tab px-6 py-2 rounded-full bg-gray-200 text-dark font-medium transition-custom" data-tab="food">
+          轻食
+        </button>
+      </div>
+
+      <!-- 菜单内容 -->
+      <div class="menu-content" id="coffee">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- 咖啡项1 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/431/100/100" alt="浓缩咖啡" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">浓缩咖啡</h3>
+                <span class="text-primary font-medium">¥28</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                浓郁醇厚的经典浓缩咖啡，精选深度烘焙咖啡豆制作。
+              </p>
+            </div>
+          </div>
+
+          <!-- 咖啡项2 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/432/100/100" alt="卡布奇诺" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">卡布奇诺</h3>
+                <span class="text-primary font-medium">¥32</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                意式浓缩与等量的牛奶和奶泡完美融合，撒上可可粉。
+              </p>
+            </div>
+          </div>
+
+          <!-- 咖啡项3 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/433/100/100" alt="拿铁" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">拿铁</h3>
+                <span class="text-primary font-medium">¥34</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                浓缩咖啡与大量蒸牛奶混合，顶部覆盖一层细腻奶泡。
+              </p>
+            </div>
+          </div>
+
+          <!-- 咖啡项4 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/434/100/100" alt="美式咖啡" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">美式咖啡</h3>
+                <span class="text-primary font-medium">¥26</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                浓缩咖啡与热水混合，保留咖啡的浓郁口感但更清爽。
+              </p>
+            </div>
+          </div>
+
+          <!-- 咖啡项5 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/435/100/100" alt="摩卡" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">摩卡</h3>
+                <span class="text-primary font-medium">¥36</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                浓缩咖啡、巧克力酱与蒸牛奶的完美结合，顶部有奶油。
+              </p>
+            </div>
+          </div>
+
+          <!-- 咖啡项6 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/436/100/100" alt="焦糖玛奇朵" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">焦糖玛奇朵</h3>
+                <span class="text-primary font-medium">¥38</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                蒸牛奶上覆盖香草糖浆和浓缩咖啡，淋上焦糖酱。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-content hidden" id="tea">
+        <!-- 茶菜单内容 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- 茶项1 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/225/100/100" alt="英式早餐茶" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">英式早餐茶</h3>
+                <span class="text-primary font-medium">¥26</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                浓郁醇厚的红茶混合，适合搭配早餐，可加牛奶。
+              </p>
+            </div>
+          </div>
+
+          <!-- 茶项2 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/226/100/100" alt="抹茶拿铁" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">抹茶拿铁</h3>
+                <span class="text-primary font-medium">¥34</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                优质日本抹茶粉与蒸牛奶混合，口感丝滑，茶香浓郁。
+              </p>
+            </div>
+          </div>
+
+          <!-- 茶项3 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/227/100/100" alt="伯爵茶" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">伯爵茶</h3>
+                <span class="text-primary font-medium">¥28</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                带有佛手柑油香气的红茶，清爽宜人，适合全天饮用。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-content hidden" id="desserts">
+        <!-- 甜点菜单内容 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- 甜点项1 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/431/100/100" alt="提拉米苏" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">提拉米苏</h3>
+                <span class="text-primary font-medium">¥36</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                经典意大利甜点，咖啡浸泡的手指饼干与马斯卡彭奶酪层叠。
+              </p>
+            </div>
+          </div>
+
+          <!-- 甜点项2 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/432/100/100" alt="巧克力熔岩蛋糕" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">巧克力熔岩蛋糕</h3>
+                <span class="text-primary font-medium">¥42</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                外酥内软的巧克力蛋糕，中心流淌着浓郁的巧克力酱。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-content hidden" id="food">
+        <!-- 轻食菜单内容 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- 轻食项1 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/431/100/100" alt="烟熏三文鱼班尼迪克蛋" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">烟熏三文鱼班尼迪克蛋</h3>
+                <span class="text-primary font-medium">¥58</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                英式松饼上铺着烟熏三文鱼和水波蛋，淋上荷兰酱。
+              </p>
+            </div>
+          </div>
+
+          <!-- 轻食项2 -->
+          <div class="flex gap-4 items-center p-4 border-b border-gray-100 hover:bg-gray-50 transition-custom">
+            <img src="https://picsum.photos/id/432/100/100" alt="牛油果吐司" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <div class="flex justify-between">
+                <h3 class="font-display font-semibold">牛油果吐司</h3>
+                <span class="text-primary font-medium">¥42</span>
+              </div>
+              <p class="text-gray-600 text-sm">
+                全麦吐司上铺满捣碎的牛油果，配以樱桃番茄和芝麻菜。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+          查看完整菜单 <i class="fa fa-long-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 照片墙 -->
+  <section id="gallery" class="py-20 bg-secondary/30">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display font-bold text-dark mb-4">
+          咖啡时光
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          捕捉每一个值得回味的瞬间，记录我们咖啡店的温馨与美好。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer transition-custom transform hover:scale-105">
+          <img src="https://picsum.photos/id/431/400/400" alt="手冲咖啡过程" class="w-full h-full object-cover transition-custom hover:scale-110">
+        </div>
+        <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer transition-custom transform hover:scale-105">
+          <img src="https://picsum.photos/id/432/400/400" alt="拿铁艺术" class="w-full h-full object-cover transition-custom hover:scale-110">
+        </div>
+        <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer transition-custom transform hover:scale-105">
+          <img src="https://picsum.photos/id/433/400/400" alt="咖啡店内部" class="w-full h-full object-cover transition-custom hover:scale-110">
+        </div>
+        <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer transition-custom transform hover:scale-105">
+          <img src="https://picsum.photos/id/434/400/400" alt="咖啡与甜点" class="w-full h-full object-cover transition-custom hover:scale-110">
+        </div>
+        <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer transition-custom transform hover:scale-105">
+          <img src="https://picsum.photos/id/435/400/400" alt="咖啡豆" class="w-full h-full object-cover transition-custom hover:scale-110">
+        </div>
+        <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer transition-custom transform hover:scale-105">
+          <img src="https://picsum.photos/id/436/400/400" alt="户外座位区" class="w-full h-full object-cover transition-custom hover:scale-110">
+        </div>
+        <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer transition-custom transform hover:scale-105">
+          <img src="https://picsum.photos/id/437/400/400" alt="咖啡师制作咖啡" class="w-full h-full object-cover transition-custom hover:scale-110">
+        </div>
+        <div class="gallery-item overflow-hidden rounded-lg shadow-lg cursor-pointer transition-custom transform hover:scale-105">
+          <img src="https://picsum.photos/id/438/400/400" alt="咖啡杯特写" class="w-full h-full object-cover transition-custom hover:scale-110">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 位置 -->
+  <section id="location" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display font-bold text-dark mb-4">
+          找到我们
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          欢迎光临我们温馨的咖啡店，享受一杯香浓的咖啡和片刻宁静。
+        </p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-12">
+        <div class="lg:w-1/2">
+          <!-- 地图占位 -->
+          <div class="bg-gray-200 rounded-lg overflow-hidden h-[400px] relative">
+            <img src="https://picsum.photos/id/429/800/600" alt="咖啡店地图位置" class="w-full h-full object-cover">
+            <div class="absolute inset-0 flex items-center justify-center bg-primary/20">
+              <div class="bg-white p-4 rounded-lg shadow-lg">
+                <i class="fa fa-map-marker text-primary text-2xl"></i>
+                <p class="font-medium">GreenCamp Coffee</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:w-1/2">
+          <div class="bg-secondary/30 p-8 rounded-lg">
+            <h3 class="text-xl font-display font-semibold mb-6">联系方式</h3>
+
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">地址</h4>
+                  <p class="text-gray-600">上海市静安区南京西路1266号恒隆广场46楼</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fa fa-phone text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">电话</h4>
+                  <p class="text-gray-600">+86 21 5888 8888</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fa fa-envelope text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">邮箱</h4>
+                  <p class="text-gray-600">info@brewhaven.com</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fa fa-clock-o text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium">营业时间</h4>
+                  <p class="text-gray-600">周一至周五: 7:30 - 21:00</p>
+                  <p class="text-gray-600">周六至周日: 8:30 - 22:00</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <h4 class="font-medium mb-4">关注我们</h4>
+              <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-full flex items-center justify-center text-primary transition-custom">
+                  <i class="fa fa-weixin"></i>
+                </a>
+                <a href="#" class="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-full flex items-center justify-center text-primary transition-custom">
+                  <i class="fa fa-weibo"></i>
+                </a>
+                <a href="#" class="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-full flex items-center justify-center text-primary transition-custom">
+                  <i class="fa fa-instagram"></i>
+                </a>
+                <a href="#" class="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-full flex items-center justify-center text-primary transition-custom">
+                  <i class="fa fa-facebook"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系我们 -->
+  <section id="contact" class="py-20 bg-secondary/30">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display font-bold text-dark mb-4">
+          联系我们
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          有任何问题或建议？请随时与我们联系，我们将尽快回复您。
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto">
+        <form id="contact-form" class="bg-white p-8 rounded-lg shadow-lg">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 mb-2">姓名</label>
+              <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="您的姓名">
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">邮箱</label>
+              <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="您的邮箱">
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">主题</label>
+            <input type="text" id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="邮件主题">
+          </div>
+
+          <div class="mb-6">
+            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">留言</label>
+            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" placeholder="请输入您的留言..."></textarea>
+          </div>
+
+          <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-custom transform hover:scale-[1.02]">
+            发送留言
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 订阅 -->
+  <section class="py-16 bg-primary">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-display font-bold text-white mb-4">
+          订阅我们的新闻通讯
+        </h2>
+        <p class="text-white/80 mb-8">
+          获取最新的咖啡资讯、新品发布和独家优惠。
+        </p>
+
+        <form class="flex flex-col sm:flex-row gap-4">
+          <input type="email" placeholder="您的邮箱地址" class="flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white">
+          <button type="submit" class="bg-accent hover:bg-accent/90 text-white font-medium py-3 px-6 rounded-lg transition-custom">
+            立即订阅
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-display font-bold mb-6">GreenCamp</h3>
+          <p class="text-gray-400 mb-6">
+            我们致力于为咖啡爱好者提供最优质的咖啡体验，从世界各地精选的咖啡豆，由专业咖啡师精心烘焙。
+          </p>
+          <div class="flex gap-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-custom">
+              <i class="fa fa-weixin"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-custom">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-custom">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-custom">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-medium mb-6">快速链接</h4>
+          <ul class="space-y-3">
+            <li><a href="#home" class="text-gray-400 hover:text-white transition-custom">首页</a></li>
+            <li><a href="#about" class="text-gray-400 hover:text-white transition-custom">关于我们</a></li>
+            <li><a href="#menu" class="text-gray-400 hover:text-white transition-custom">菜单</a></li>
+            <li><a href="#gallery" class="text-gray-400 hover:text-white transition-custom">照片墙</a></li>
+            <li><a href="#location" class="text-gray-400 hover:text-white transition-custom">位置</a></li>
+            <li><a href="#contact" class="text-gray-400 hover:text-white transition-custom">联系我们</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-medium mb-6">营业时间</h4>
+          <ul class="space-y-3">
+            <li class="flex justify-between">
+              <span class="text-gray-400">周一至周五</span>
+              <span>7:30 - 21:00</span>
+            </li>
+            <li class="flex justify-between">
+              <span class="text-gray-400">周六</span>
+              <span>8:30 - 22:00</span>
+            </li>
+            <li class="flex justify-between">
+              <span class="text-gray-400">周日</span>
+              <span>8:30 - 22:00</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-medium mb-6">联系方式</h4>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <i class="fa fa-map-marker text-accent mt-1"></i>
+              <span class="text-gray-400">东莞</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fa fa-phone text-accent mt-1"></i>
+              <span class="text-gray-400">+86 21 5888 8888</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fa fa-envelope text-accent mt-1"></i>
+              <span class="text-gray-400">info@brewhaven.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 GreenCamp Coffee. 保留所有权利。</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 回到顶部按钮 -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary hover:bg-primary/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-custom opacity-0 invisible">
+    <i class="fa fa-chevron-up"></i>
+  </button>
+
+  <!-- 脚本 -->
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-dark/95', 'backdrop-blur-md', 'shadow-md');
+        navbar.classList.remove('py-4');
+        navbar.classList.add('py-2');
+
+        backToTop.classList.remove('opacity-0', 'invisible');
+        backToTop.classList.add('opacity-100', 'visible');
+      } else {
+        navbar.classList.remove('bg-dark/95', 'backdrop-blur-md', 'shadow-md');
+        navbar.classList.add('py-4');
+        navbar.classList.remove('py-2');
+
+        backToTop.classList.add('opacity-0', 'invisible');
+        backToTop.classList.remove('opacity-100', 'visible');
+      }
+    });
+
+    // 移动端菜单
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        menuToggle.innerHTML = '<i class="fa fa-bars text-2xl"></i>';
+      } else {
+        menuToggle.innerHTML = '<i class="fa fa-times text-2xl"></i>';
+      }
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+
+          // 关闭移动端菜单
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            menuToggle.innerHTML = '<i class="fa fa-bars text-2xl"></i>';
+          }
+        }
+      });
+    });
+
+    // 回到顶部
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // 菜单标签页切换
+    const menuTabs = document.querySelectorAll('.menu-tab');
+    const menuContents = document.querySelectorAll('.menu-content');
+
+    menuTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // 移除所有标签的活动状态
+        menuTabs.forEach(t => {
+          t.classList.remove('active', 'bg-primary', 'text-white');
+          t.classList.add('bg-gray-200', 'text-dark');
+        });
+
+        // 添加当前标签的活动状态
+        tab.classList.add('active', 'bg-primary', 'text-white');
+        tab.classList.remove('bg-gray-200', 'text-dark');
+
+        // 隐藏所有内容
+        menuContents.forEach(content => {
+          content.classList.add('hidden');
+        });
+
+        // 显示对应内容
+        const targetTab = tab.getAttribute('data-tab');
+        document.getElementById(targetTab).classList.remove('hidden');
+      });
+    });
+
+    // 联系表单提交
+    const contactForm = document.getElementById('contact-form');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // 模拟表单提交
+      const submitButton = contactForm.querySelector('button[type="submit"]');
+      const originalText = submitButton.innerHTML;
+
+      submitButton.disabled = true;
+      submitButton.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i> 发送中...';
+
+      setTimeout(() => {
+        alert('感谢您的留言！我们将尽快回复您。');
+        contactForm.reset();
+
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalText;
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
